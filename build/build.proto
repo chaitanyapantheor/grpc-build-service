@@ -1,0 +1,33 @@
+syntax = "proto3";
+package build;
+
+option go_package = "service/build";
+
+import "google/api/annotations.proto";
+
+// The build service definition.
+service BuildService {
+    // get all builds
+    rpc GetBuilds (BuildRequest) returns (BuildResponse) {
+        option (google.api.http) = {
+            post: "/v1/builds"
+            body: "*"
+        };
+    }
+}
+  
+// The request message containing the user's name.
+message BuildRequest {
+    string filter = 1;
+}
+  
+// The response message containing the builds
+message BuildResponse {
+    Build build = 1;
+}
+
+message Build {
+    string id = 1;
+    string label = 2;
+    string status = 3;
+}
